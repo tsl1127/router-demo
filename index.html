@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>路由</title>
+</head>
+<body>
+    <style>
+        x-tab{
+            display: block;
+        }
+        x-tab >.nav >li.active{
+            background: red;
+        }
+        x-tab > .content>li{
+            display: none;
+        }
+        x-tab > .content>li.active{
+            background: green;
+            display: block;
+        }
+    </style>
+
+    <x-tab>   <!-- 默认标签，刚开始等同于span -->
+        <ol class="nav">
+            <li class="active">tab1</li>
+            <li>tab2</li>
+        </ol>
+        <ol class="content">
+            <li class="active">content1</li>
+            <li>content2</li>
+        </ol>
+    </x-tab>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        let index = location.hash ||'#0'   //取的时候会有#号
+        index=index.substring(1)  //不要#号，从1开始
+        // console.log(index)
+        $('x-tab >.nav>li').eq(index).addClass('active').siblings().removeClass('active')
+        $('x-tab >.content>li').eq(index).addClass('active').siblings().removeClass('active')
+
+        $('x-tab').on('click','.nav>li',(e)=>{
+            let $li=$(e.currentTarget)
+            $li.addClass('active')
+            .siblings().removeClass('active')
+            let index=$li.index()   //找到li的序号
+            location.hash=index  //设置的时候不需要#号
+            $li.closest('x-tab').find('.content>li').eq(index).addClass('active').siblings().removeClass('active')
+        })
+    </script>
+</body>
+</html>
