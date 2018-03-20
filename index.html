@@ -32,18 +32,19 @@
             <li class="active">content1</li>
             <li>content2</li>
         </ol>
+
     </x-tab>
+    <!-- <a href="#top">回</a> -->
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        let index = location.hash ||'#0'   //取的时候会有#号
-        index=index.substring(1)  //不要#号，从1开始
-        // console.log(index)
-        $('x-tab >.nav>li').eq(index).addClass('active').siblings().removeClass('active')
-        $('x-tab >.content>li').eq(index).addClass('active').siblings().removeClass('active')
-
+        selectTab()
         window.onhashchange =(e)=>{
             // console.log(e)
             // console.log(location.hash)
+            selectTab()
+        }
+
+        function selectTab(){
             let index = location.hash ||'#0'
             index=index.substring(1)
             $('x-tab >.nav>li').eq(index).addClass('active').siblings().removeClass('active')
