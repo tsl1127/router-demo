@@ -23,8 +23,10 @@
 
     <x-tab>   <!-- 默认标签，刚开始等同于span -->
         <ol class="nav">
-            <li class="active">tab1</li>
-            <li>tab2</li>
+            <li class="active">
+               <a href="#0">tab1</a> 
+            </li>
+            <li><a href="#1">tab2</a></li>
         </ol>
         <ol class="content">
             <li class="active">content1</li>
@@ -39,14 +41,14 @@
         $('x-tab >.nav>li').eq(index).addClass('active').siblings().removeClass('active')
         $('x-tab >.content>li').eq(index).addClass('active').siblings().removeClass('active')
 
-        $('x-tab').on('click','.nav>li',(e)=>{
-            let $li=$(e.currentTarget)
-            $li.addClass('active')
-            .siblings().removeClass('active')
-            let index=$li.index()   //找到li的序号
-            location.hash=index  //设置的时候不需要#号
-            $li.closest('x-tab').find('.content>li').eq(index).addClass('active').siblings().removeClass('active')
-        })
+        window.onhashchange =(e)=>{
+            // console.log(e)
+            // console.log(location.hash)
+            let index = location.hash ||'#0'
+            index=index.substring(1)
+            $('x-tab >.nav>li').eq(index).addClass('active').siblings().removeClass('active')
+            $('x-tab >.content>li').eq(index).addClass('active').siblings().removeClass('active')
+        }
     </script>
 </body>
 </html>
