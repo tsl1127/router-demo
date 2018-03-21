@@ -22,12 +22,14 @@ var server = http.createServer(function(request, response){
   console.log('方方说：含查询字符串的路径\n' + pathWithQuery)
 
   if(path === '/'||path==='/tab2'||path==='/tab1'){
+    // if(method.toLowerCase()==='get'){
       let string = fs.readFileSync('./index.html','utf-8')
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write(string)
     response.end()
-  }else{
+  }
+else{
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write('呜呜呜')
